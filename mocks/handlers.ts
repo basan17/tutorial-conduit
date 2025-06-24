@@ -1,6 +1,5 @@
 import { randomBytes } from "node:crypto";
 import { http } from "msw";
-import { backendBaseUrl } from "shared/config";
 import realWorldApp from "realworld-hono-drizzle";
 
 const bindings = {
@@ -8,8 +7,11 @@ const bindings = {
   JWT_SECRET: randomBytes(64).toString("base64url"),
 };
 
+// This used to be the URL for the realworld.io API, but now it's down. We will mock requests to this URL.
+export const mockBackendUrl = "https://api.realworld.io/api";
+
 export const handlers = [
-  http.all(`${backendBaseUrl.replace(/\/$/, '')}/*`, ({ request }) => {
+  http.all(`${mockBackendUrl}/*`, ({ request }) => {
     return realWorldApp.fetch(request, bindings);
   }),
 ];

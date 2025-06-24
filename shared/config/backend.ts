@@ -1,1 +1,1 @@
-export const backendBaseUrl = "https://api.realworld.io/api";
+export { mockBackendUrl as backendBaseUrl } from "mocks/handlers";
